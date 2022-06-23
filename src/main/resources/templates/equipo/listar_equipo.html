@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="ISO-8859-1">
+        <title>Asignacion de Equipo Tecnologico</title>
+        <link rel="stylesheet"
+              href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+              crossorigin="anonymous">
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+            <!-- Brand -->
+            <a class="navbar-brand" href="#">Asignacion de Equipo Tecnologico</a>
+
+            <!-- Toggler/Collapse Button -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navbar links -->
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/}">Gestion de Asignacion de Equipos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/equipo/listar}">Gestion de Equipos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/persona/listar}">Gestion de Personas</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="container">
+
+            <div class="row">
+                <h1>Listar Equipos</h1>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3">
+                    <a th:href="@{/equipo/nuevo}" class="btn btn-primary btn-sm mb-3">Agregar Equipos</a>
+                </div>
+                <div class="col-lg-8">
+                    <form th:action="@{/equipo/buscar}" method="get">
+                        <input type="text" name="filtro" th:value="${filtro}"  placeholder="Buscar codigo, marca, tipo o fecha de compra" size="50" >
+                        <button type="submit" class="btn btn-info" >Buscar</button>
+                    </form>
+                </div>
+            </div>
+
+
+            <table class="table table-striped table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Codigo</th>
+                        <th>Marca</th>
+                        <th>Ram</th>
+                        <th>Disco Duro</th>
+                        <th>Tipo</th>
+                        <th>Procesador</th>
+                        <th>Fecha Compra</th>
+                        <th>Accion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="equipo: ${equipos}">
+                        <td th:text="${equipo.codigo}"></td>
+                        <td th:text="${equipo.marca}"></td>
+                        <td th:text="${equipo.ram}"></td>
+                        <td th:text="${equipo.disco}"></td>
+                        <td th:text="${equipo.tipo}"></td>
+                        <td th:text="${equipo.procesador}"></td>
+                        <td th:text="${equipo.fechaCompra}"></td>
+                        <td>
+                            <a th:href="@{/equipo/editar/{id}(id=${equipo.id})}"
+                               class="btn btn-primary">Actualizar</a>
+                            <a th:href="@{/equipo/eliminar/{id}(id=${equipo.id})}"
+                               class="btn btn-danger">Eliminar</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </body>
+</html>
